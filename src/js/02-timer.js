@@ -46,7 +46,9 @@ function onBtnTimerStart() {
   delta = selectedDate - currentTime;
     paintTimeCounter();
     
-  if (delta <= 0) { 
+    if (delta <= 0) { 
+      delta = 0;
+      paintTimeCounter();
        clearInterval(timerID);
   }
 
