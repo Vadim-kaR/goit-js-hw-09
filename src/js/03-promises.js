@@ -4,19 +4,17 @@ const refs = {
   form:document.querySelector('.form')
 }
 
-const formData = {};
-
-refs.form.addEventListener('input', e => {
-  formData[e.target.name] = e.target.value;
-});
-
 refs.form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) { 
   e.preventDefault();
-  for (let i = 0; i < formData.amount; i += 1) { 
+  const amount = e.currentTarget.amount.value;
+  const step = e.currentTarget.step.value;
+  const delay = e.currentTarget.delay.value;
+  
+  for (let i = 0; i < amount; i += 1) { 
 
-    createPromise(formData.step, formData.delay)
+    createPromise(step, delay)
     .then(({ position, delay }) => {
     Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
   })
