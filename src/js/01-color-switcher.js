@@ -6,7 +6,7 @@ const refs = {
 
 let timer = null;
 
-refs.btnStop.disabled = true;
+
 
 refs.btnStart.addEventListener('click', onStartDisco);
 refs.btnStop.addEventListener('click', onStopDisco);
