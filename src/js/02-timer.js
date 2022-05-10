@@ -9,7 +9,7 @@ const refs = {
   seconds: document.querySelector('.value[data-seconds]'),
   startBtn: document.querySelector("button[data-start]"),
 }
-refs.startBtn.disabled = true;
+
 let selectedDate = null;
 let delta = null;
 
@@ -22,6 +22,7 @@ const options = {
 
     if (selectedDates[0] < new Date()) { 
       Notiflix.Notify.failure('Please choose a date in the future');
+      refs.startBtn.disabled = true;
       return;
     }
     refs.startBtn.disabled = false;
@@ -37,18 +38,17 @@ function onBtnTimerStart() {
   let timerID = null;
 
   timerID = setInterval(() => {
+
   const currentTime = new Date();
   delta = selectedDate - currentTime;
+     if (delta <= 0) { 
+      delta = 0;
+      clearInterval(timerID);
+       return;
+      }
     paintTimeCounter();
     
-    if (delta <= 0) { 
-      delta = 0;
-      paintTimeCounter();
-      clearInterval(timerID);
-  }
-
   }, 1000);
-      
 }
 
 function paintTimeCounter() { 
@@ -85,10 +85,8 @@ function addLeadingZero({ days, hours, minutes, seconds }) {
   const newDays = String(days).padStart(2, '0');
   const newHours = String(hours).padStart(2, '0');
   const newMinutes = String(minutes).padStart(2, '0');
-  const newSeconds = String(seconds).padStart(2, '0');
-  
+  const newSeconds = String(seconds).padStart(2, '0'); 
   return { newDays, newHours, newMinutes, newSeconds };
-  
 }
 
 
